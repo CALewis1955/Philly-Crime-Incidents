@@ -14,11 +14,11 @@ This project seeks to determine whether the fears are justified or, instead, are
 
 ##  Technology Stack
 
-Infrastructure as Code: Terraform
-Cloud Platform: Google Cloud
-Data Lake: Google Cloud Storage
-Data Warehouse: Google BigQuery
-Data Transformation: Pandas, PySpark
-Workflow Orchestration --> Mage
-Containerization --> Docker and Docker Compose
-Data Vizualization Tool --> Google Data Studio
+    #### Infrastructure as Code: Terraform
+    #### Cloud Platform: Google Cloud
+    #### Data Lake: Google Cloud Storage
+    #### Data Warehouse: Google BigQuery
+    #### Data Transformation: Pandas, PySpark
+    #### Workflow Orchestration --> Mage
+    #### Containerization --> Docker and Docker Compose
+    #### Data Vizualization Tool --> Google Data Studio
