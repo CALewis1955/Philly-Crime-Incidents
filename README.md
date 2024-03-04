@@ -22,3 +22,17 @@ This project seeks to determine whether the fears are justified or, instead, are
 #### Workflow Orchestration --> Mage
 #### Containerization --> Docker and Docker Compose
 #### Data Vizualization Tool --> Google Data Studio
+
+
+## Steps
+1.  Create VM using Google Cloud Platform.
+  a.  Create config file to SSH to GCS VM.
+  b.  Install:
+      1.  Anaconda
+      2.  Docker
+      3.  Docker-compose
+      4.  Terraform
+      5.  Mage
+  c.  Versions
+      a.  Python 3.11.4
+      b  Pandas 1.5.3
