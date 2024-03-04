@@ -6,7 +6,7 @@ This repo contains the final project implemented for the Data Engineering zoomca
 
 The general public views crime as a pervasive and enduring problem in America's large cities.  Philadelphia, in particular, has gained notoriety as the home of the East Coast's largest open-air drug market, an area of the city where opiate addicts and drug dealers congregate to supply this life-destroying addiction.  Politics and the presidential election cycle have intentionally provoked public anxiety about rising crime.
 
-This project seeks to determine whether the fears are justified or, instead, are misplaced.  From polic incident reports we can determine whether reported incidents of crime are increasing, the severity of those crimes, and the relative safety of various neighborhoods in the city.  
+This project seeks to determine whether the fears are justified or, instead, are misplaced.  From police incident reports we can determine whether reported incidents of crime are increasing, the severity of those crimes, and the relative safety of various neighborhoods in the city.  
 
 ## Data Source
 
