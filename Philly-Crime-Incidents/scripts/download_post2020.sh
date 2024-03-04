@@ -12,11 +12,11 @@ URL=${URL_PREFIX}2022${URL_SUFFIX}2023${URL_END}
 for YEAR in {2020..2023}; do
     ENDING_YEAR=$(( ${YEAR} +1 ))
     URL=${URL_PREFIX}${YEAR}${URL_SUFFIX}${ENDING_YEAR}${URL_END}
-    LOCAL_PREFIX="~/data/raw/csv/"
+    LOCAL_PREFIX="data/raw/csv"
     LOCAL_FILE="${YEAR}_crime_incidents.csv.gz"
     LOCAL_PATH="${LOCAL_PREFIX}/${LOCAL_FILE}"
 
     echo "downloading ${URL} to ${LOCAL_PATH}"
     mkdir -p ${LOCAL_PREFIX}
-    wget ${URL} -O ${LOCAL_PATH}
+    wget ${URL} -O ${LOCAL_PATH} 
 done
