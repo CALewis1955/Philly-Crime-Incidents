@@ -51,4 +51,4 @@ This project seeks to determine whether the fears are justified or, instead, are
 
 ## Setup
 
-  The setup guide from the Zoomcamp for installing Spark can be found here:  https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/linux.md.  The setup guide from the Zoomcamp for installing PySpark can be found here:  https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/pyspark.md.
+  The setup guide from the Zoomcamp for installing Spark can be found here:  https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/linux.md.  The setup guide from the Zoomcamp for installing PySpark can be found here:  https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/pyspark.md.  The setup guide from the Zoomcamp for Mage can be found here:  https://github.com/mage-ai/mage-zoomcamp/blob/master/README.md.
