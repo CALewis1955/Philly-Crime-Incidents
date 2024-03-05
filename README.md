@@ -12,6 +12,16 @@ This project seeks to determine whether the fears are justified or, instead, are
 
   The City of Philadelphia maintains a catalog of open data in the Philadelphia region https://opendataphilly.org/.  The catalog contains 44 datasets relating to public safety https://opendataphilly.org/categories/public-safety/.  For this project we will be using the dataset of crime incidents as reported by the Philadelphia Police Department:  https://opendataphilly.org/datasets/crime-incidents/.  The crimes reported range from violent offenses such as aggravated assault, rape, and arson, among others, to non-violent offenses, such as prostituion and gambling, that today are sometimes considered quality of life indicators. The dataset includes fields that identify the police district involved, the date and time an officer was dispatched to the scene, the location of the crime generalized by street block, and the latitude and longitude of the crime location.  The geo data allows the creation of visualizations that depict the location of various crimes. 
 
+## Key Questions to Answer
+
+1.  Which police districts are the safest?  Which have the most reported crimes?
+2.  Are high crime districts high in both violent and non-violent crimes?
+3.  Has violent crime increased over time?
+4.  What is the trend in the frequency of non-violent crime?
+5.  What is the distribution of violent crimes?  Of non-violent crimes?
+6.  What time of day is safest?  Most dangerous?
+7.  How effective are police in deterring crime in a district?  That is, do the crimes decrease by a significant percentage in any districts over the course of a few years?
+
 ##  Technology Stack
 
 #### Infrastructure as Code: Terraform
@@ -36,3 +46,5 @@ This project seeks to determine whether the fears are justified or, instead, are
   c.  Versions
       a.  Python 3.11.4
       b  Pandas 1.5.3
+      c.  Docker 24.0.5
+      d.  Docker-compose 2.24.6
