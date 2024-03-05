@@ -48,3 +48,7 @@ This project seeks to determine whether the fears are justified or, instead, are
       b  Pandas 1.5.3
       c.  Docker 24.0.5
       d.  Docker-compose 2.24.6
+
+## Setup
+
+  The setup guide from the Zoomcamp for installing Spark can be found here:  https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/linux.md.  The setup guide from the Zoomcamp for installing PySpark can be found here:  https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/pyspark.md.
