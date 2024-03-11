@@ -24,13 +24,14 @@ This project seeks to determine whether the fears are justified or, instead, are
 
 ##  Technology Stack
 
-#### Infrastructure as Code: Terraform
+#### Anaconda v.4.10.3, Python v.3.9.7
+#### Infrastructure as Code: Terraform v.1.7.4 on Linux_amd64
+#### Containerization: Docker v.25.0.4 and Docker Compose v.2.24.7 
+#### Workflow Orchestration: Mage
 #### Cloud Platform: Google Cloud
 #### Data Lake: Google Cloud Storage
 #### Data Warehouse: Google BigQuery
-#### Data Transformation: Pandas, PySpark
-#### Workflow Orchestration --> Mage
-#### Containerization --> Docker and Docker Compose
+#### Data Transformation: dbt Cloud
 #### Data Vizualization Tool --> Google Data Studio
 
 
