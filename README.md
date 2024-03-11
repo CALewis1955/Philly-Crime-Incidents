@@ -24,7 +24,7 @@ This project seeks to determine whether the fears are justified or, instead, are
 
 ##  Technology Stack
 
-#### Anaconda v.4.10.3, Python v.3.9.7
+#### Code: Anaconda v.4.10.3, Python v.3.9.7
 #### Infrastructure as Code: Terraform v.1.7.4 on Linux_amd64
 #### Containerization: Docker v.25.0.4 and Docker Compose v.2.24.7 
 #### Workflow Orchestration: Mage
@@ -44,11 +44,6 @@ This project seeks to determine whether the fears are justified or, instead, are
       3.  Docker-compose
       4.  Terraform
       5.  Mage
-  c.  Versions
-      a.  Python 3.11.4
-      b  Pandas 1.5.3
-      c.  Docker 24.0.5
-      d.  Docker-compose 2.24.6
 
 ## Setup
 
