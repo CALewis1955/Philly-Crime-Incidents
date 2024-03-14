@@ -21,6 +21,8 @@ This project seeks to determine whether the fears are justified or, instead, are
 5.  What is the distribution of violent crimes?  Of non-violent crimes?
 6.  What time of day is safest?  Most dangerous?
 
+## Link to Google Looker Studio -- Visualization of Data:  https://lookerstudio.google.com/reporting/14f14688-5d57-4193-bd13-019a9f023a5b.
+
 
 ##  Technology Stack
 #### Code: Anaconda v.4.10.3, Python v.3.9.7
