@@ -35,6 +35,7 @@ This project seeks to determine whether the fears are justified or, instead, are
 
 
 ## Steps
+
 1.  Create VM using Google Cloud Platform.
   a.  Create config file to SSH to GCS VM.
   b.  Install:
@@ -49,11 +50,13 @@ This project seeks to determine whether the fears are justified or, instead, are
 5.  Use dbt to run tests for uniqueness and not null, as well as to transform column names and organize the sourcing of the data.
 6.  With Google Looker Studio, prepare charts to visualize the data.  
 
+
 ## Setup
 
     The setup guide from the Zoomcamp for Mage can be found here:  https://github.com/mage-ai/mage-zoomcamp/blob/master/README.md.
 
-  ## Issues Encountered During the Project
+
+## Issues Encountered During the Project
   
     Since the source files had a "gz" compressed extension, I assumed they would be large when uncompressed.  This assumption was erroneous.  In fact, when I tried to read one into Pandas, I got an error stating that the file was not compressed at all.  It turns out that they are text files, even though they bear a "gz" extension.  Also, each year's data was relatively small, so I did not have to use a generator to read the files without using all the memory.  Nevertheless, when I tried to concatenate all years from 2006 through 2023, Mage froze up.  So I ended up creating a Parquet file for each year in Google Cloud Storage and then doing a "UNION ALL" in BigQuery to create one dataset.
     
