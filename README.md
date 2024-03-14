@@ -43,11 +43,11 @@ This project seeks to determine whether the fears are justified or, instead, are
       3.  Docker-compose
       4.  Terraform
       5.  Mage
-  c.  Run bash files to download source files (by calendar year) from the Philadelphia Open Data Portal.
-  d.  Run Terraform to set up Google Cloud Storage bucket and BigQuery dataset.
-  e.  Use Mage pipeline to read files into Pandas, transform them by adding columns for the day of the week, month and quarter, load them as Parquet files in Google Cloud Storage, and then load them to Bigquery.
-  f.  Use dbt to run tests for uniqueness and not null, as well as to transform column names and organize the sourcing of the data.
-  g.  With Google Looker Studio, prepare charts to visualize the data.  
+2.  Run bash files to download source files (by calendar year) from the Philadelphia Open Data Portal.
+3.  Run Terraform to set up Google Cloud Storage bucket and BigQuery dataset.
+4.  Use Mage pipeline to read files into Pandas, transform them by adding columns for the day of the week, month and quarter, load them as Parquet files in Google Cloud Storage, and then load them to Bigquery.
+5.  Use dbt to run tests for uniqueness and not null, as well as to transform column names and organize the sourcing of the data.
+6.  With Google Looker Studio, prepare charts to visualize the data.  
 
 ## Setup
 
