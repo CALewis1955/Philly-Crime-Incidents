@@ -67,4 +67,7 @@ This project seeks to determine whether the fears are justified or, instead, are
     I wrote bash scriipts to download all the source files from the Philadelphia Open Data Portal.  There are two scripts--one for pre-2020 data and another for post-2020 data--because Philadelphia changed the format of the reports beginning in 2020.  
 
     During the earlier phases of this project, I tried to use Airflow for the workflow orchesration.  I found it endless frustrating and never got it to work, even with the stripped down configuration recommended in the 2022 DE Zoomcamp.
+<<<<<<< HEAD
  # sandbox 
+=======
+>>>>>>> eedfe43aac8b382f25bf9b0831bfaa4fa45e58f6
