@@ -55,19 +55,15 @@ This project seeks to determine whether the fears are justified or, instead, are
 
 ## Setup
 
-    The setup guide from the Zoomcamp for Mage can be found here:  https://github.com/mage-ai/mage-zoomcamp/blob/master/README.md.
+The setup guide from the Zoomcamp for Mage can be found here:  https://github.com/mage-ai/mage-zoomcamp/blob/master/README.md.
 
 
 ## Issues Encountered During the Project
   
-    Since the source files had a "gz" compressed extension, I assumed they would be large when uncompressed.  This assumption was erroneous.  In fact, when I tried to read one into Pandas, I got an error stating that the file was not compressed at all.  It turns out that they are text files, even though they bear a "gz" extension.  Also, each year's data was relatively small, so I did not have to use a generator to read the files without using all the memory.  Nevertheless, when I tried to concatenate all years from 2006 through 2023, Mage froze up.  So I ended up creating a Parquet file for each year in Google Cloud Storage and then doing a "UNION ALL" in BigQuery to create one dataset.
+Since the source files had a "gz" compressed extension, I assumed they would be large when uncompressed.  This assumption was erroneous.  In fact, when I tried to read one into Pandas, I got an error stating that the file was not compressed at all.  It turns out that they are text files, even though they bear a "gz" extension.  Also, each year's data was relatively small, so I did not have to use a generator to read the files without using all the memory.  Nevertheless, when I tried to concatenate all years from 2006 through 2023, Mage froze up.  So I ended up creating a Parquet file for each year in Google Cloud Storage and then doing a "UNION ALL" in BigQuery to create one dataset.  The files are posted annually by the City of Philadelphia.  In Mage, I created a trigger for the pipeline to run at least once more next year, in 2025, but the download script would need to be modified to change the ending year of the range. 
     
-    After I loaded the database into dbt, I realized I had not included the most recent full calendar year, 2023.  So I had to go back and add that year's data.  Fortunately, with the pipeline in Mage, this was an easy undertaking.  Then, in Google Looker Studio, I noted a sharp dropoff in reported crimes for the year 2008.  It turned out that 2008 had somehow been missed in the initial pipeline.  So I had to run the pipeline separately for that year as well.
+After I loaded the database into dbt, I realized I had not included the most recent full calendar year, 2023.  So I had to go back and add that year's data.  Fortunately, with the pipeline in Mage, this was an easy undertaking.  Then, in Google Looker Studio, I noted a sharp dropoff in reported crimes for the year 2008.  It turned out that 2008 had somehow been missed in the initial pipeline.  So I had to run the pipeline separately for that year as well.
 
-    I wrote bash scriipts to download all the source files from the Philadelphia Open Data Portal.  There are two scripts--one for pre-2020 data and another for post-2020 data--because Philadelphia changed the format of the reports beginning in 2020.  
+I wrote bash scriipts to download all the source files from the Philadelphia Open Data Portal.  There are two scripts--one for pre-2020 data and another for post-2020 data--because Philadelphia changed the format of the reports beginning in 2020.  
 
-    During the earlier phases of this project, I tried to use Airflow for the workflow orchesration.  I found it endless frustrating and never got it to work, even with the stripped down configuration recommended in the 2022 DE Zoomcamp.
-<<<<<<< HEAD
- # sandbox 
-=======
->>>>>>> eedfe43aac8b382f25bf9b0831bfaa4fa45e58f6
+During the earlier phases of this project, I tried to use Airflow for the workflow orchesration.  I found it endlessly frustrating and never got it to work, even with the stripped down configuration recommended in the 2022 DE Zoomcamp.
