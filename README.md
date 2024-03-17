@@ -33,7 +33,7 @@ This project seeks to determine whether the fears are justified or, instead, are
 #### Data Lake: Google Cloud Storage
 #### Data Warehouse: Google BigQuery
 #### Data Transformation: dbt Cloud
-#### Data Vizualization Tool --> Google Looker Studio
+#### Data Vizualization Tool: Google Looker Studio
 
 
 ## Steps
