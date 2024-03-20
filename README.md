@@ -1,4 +1,4 @@
-# Philly-Crime-Incidents
+# Philly Crime Incidents
 
 This repo contains the final project implemented for the Data Engineering zoomcamp course.  Many thanks to https://github.com/ara-25/nyc_crimes_de?tab=readme-ov-file whose project on New York crime analytics inspired this project.
 
@@ -20,10 +20,11 @@ This project seeks to determine whether the fears are justified or, instead, are
 4.  What is the trend in the frequency of non-violent crime?
 5.  What is the distribution of violent crimes?  Of non-violent crimes?
 6.  What time of day is safest?  Most dangerous?
-7.  How effective are police in deterring crime in a district?  That is, do the crimes decrease by a significant percentage in any districts over the course of a few years?
+
+## Link to Google Looker Studio -- Visualization of Data:  https://lookerstudio.google.com/reporting/14f14688-5d57-4193-bd13-019a9f023a5b.
+
 
 ##  Technology Stack
-
 #### Code: Anaconda v.4.10.3, Python v.3.9.7
 #### Infrastructure as Code: Terraform v.1.7.4 on Linux_amd64
 #### Containerization: Docker v.25.0.4 and Docker Compose v.2.24.7 
@@ -32,10 +33,11 @@ This project seeks to determine whether the fears are justified or, instead, are
 #### Data Lake: Google Cloud Storage
 #### Data Warehouse: Google BigQuery
 #### Data Transformation: dbt Cloud
-#### Data Vizualization Tool --> Google Data Studio
+#### Data Vizualization Tool: Google Looker Studio
 
 
 ## Steps
+
 1.  Create VM using Google Cloud Platform.
   a.  Create config file to SSH to GCS VM.
   b.  Install:
@@ -44,7 +46,24 @@ This project seeks to determine whether the fears are justified or, instead, are
       3.  Docker-compose
       4.  Terraform
       5.  Mage
+2.  Run bash files to download source files (by calendar year) from the Philadelphia Open Data Portal.
+3.  Run Terraform to set up Google Cloud Storage bucket and BigQuery dataset.
+4.  Use Mage pipeline to read files into Pandas, transform them by adding columns for the day of the week, month and quarter, load them as Parquet files in Google Cloud Storage, and then load them to Bigquery.
+5.  Use dbt to run tests for uniqueness and not null, as well as to transform column names and organize the sourcing of the data.
+6.  With Google Looker Studio, prepare charts to visualize the data.  
+
 
 ## Setup
 
-  The setup guide from the Zoomcamp for installing Spark can be found here:  https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/linux.md.  The setup guide from the Zoomcamp for installing PySpark can be found here:  https://github.com/DataTalksClub/data-engineering-zoomcamp/blob/main/05-batch/setup/pyspark.md.  The setup guide from the Zoomcamp for Mage can be found here:  https://github.com/mage-ai/mage-zoomcamp/blob/master/README.md.
+The setup guide from the Zoomcamp for Mage can be found here:  https://github.com/mage-ai/mage-zoomcamp/blob/master/README.md.
+
+
+## Issues Encountered During the Project
+  
+Since the source files had a "gz" compressed extension, I assumed they would be large when uncompressed.  This assumption was erroneous.  In fact, when I tried to read one into Pandas, I got an error stating that the file was not compressed at all.  It turns out that they are text files, even though they bear a "gz" extension.  Also, each year's data was relatively small, so I did not have to use a generator to read the files without using all the memory.  Nevertheless, when I tried to concatenate all years from 2006 through 2023, Mage froze up.  So I ended up creating a Parquet file for each year in Google Cloud Storage and then doing a "UNION ALL" in BigQuery to create one dataset.  The files are posted annually by the City of Philadelphia.  In Mage, I created a trigger for the pipeline to run at least once more next year, in 2025, but the download script would need to be modified to change the ending year of the range. 
+    
+After I loaded the database into dbt, I realized I had not included the most recent full calendar year, 2023.  So I had to go back and add that year's data.  Fortunately, with the pipeline in Mage, this was an easy undertaking.  Then, in Google Looker Studio, I noted a sharp dropoff in reported crimes for the year 2008.  It turned out that 2008 had somehow been missed in the initial pipeline.  So I had to run the pipeline separately for that year as well.
+
+I wrote bash scriipts to download all the source files from the Philadelphia Open Data Portal.  There are two scripts--one for pre-2020 data and another for post-2020 data--because Philadelphia changed the format of the reports beginning in 2020.  
+
+During the earlier phases of this project, I tried to use Airflow for the workflow orchesration.  I found it endlessly frustrating and never got it to work, even with the stripped down configuration recommended in the 2022 DE Zoomcamp.
