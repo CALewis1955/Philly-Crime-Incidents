@@ -1,6 +1,6 @@
 # Philly Crime Incidents
 
-This repo contains the final project implemented for the Data Engineering zoomcamp course.  Many thanks to https://github.com/ara-25/nyc_crimes_de?tab=readme-ov-file whose project on New York crime analytics inspired this project.
+This repo contains the final project implemented for the Data Engineering zoomcamp course.  Many thanks to https://github.com/ara-25/nyc_crimes_de?tab=readme-ov-file whose project on New York crime analytics inspired this project.  This is a batch project.
 
 ## Objective
 
@@ -21,7 +21,7 @@ This project seeks to determine whether the fears are justified or, instead, are
 5.  What is the distribution of violent crimes?  Of non-violent crimes?
 6.  What time of day is safest?  Most dangerous?
 
-## Link to Google Looker Studio -- Visualization of Data:  https://lookerstudio.google.com/reporting/14f14688-5d57-4193-bd13-019a9f023a5b.
+## Link to Google Looker Studio -- Dashboard and visualization of Data:  [https://lookerstudio.google.com/reporting/14f14688-5d57-4193-bd13-019a9f023a5b.](https://lookerstudio.google.com/reporting/3f3b14ec-0b6e-4804-bc8e-99944ca9453a).  Please note that this multi-page report is for educational purposes only and should NOT be relied upon as representing a fully accurate reporting of crime incidents in the City of Philadelphia. 
 
 
 ##  Technology Stack
@@ -36,7 +36,7 @@ This project seeks to determine whether the fears are justified or, instead, are
 #### Data Vizualization Tool: Google Looker Studio
 
 
-## Steps
+## Steps and Reproducibility
 
 1.  Create VM using Google Cloud Platform.
   a.  Create config file to SSH to GCS VM.
@@ -46,11 +46,12 @@ This project seeks to determine whether the fears are justified or, instead, are
       3.  Docker-compose
       4.  Terraform
       5.  Mage
-2.  Run bash files to download source files (by calendar year) from the Philadelphia Open Data Portal.
+2.  Run bash files to download source files (by calendar year) from the Philadelphia Open Data Portal.  The bash files are in the "scripts" folder in Mage.  
 3.  Run Terraform to set up Google Cloud Storage bucket and BigQuery dataset.
-4.  Use Mage pipeline to read files into Pandas, transform them by adding columns for the day of the week, month and quarter, load them as Parquet files in Google Cloud Storage, and then load them to Bigquery.
-5.  Use dbt to run tests for uniqueness and not null, as well as to transform column names and organize the sourcing of the data.
-6.  With Google Looker Studio, prepare charts to visualize the data.  
+4.  Use Mage pipeline to read files into Pandas, transform them by adding columns for the day of the week, month and quarter, load them as Parquet files in Google Cloud Storage, and then load them to Bigquery.  The final project is located in the "staging-final-project" directory of the dbt folder.
+5.  The Mage pipeline creates a file for each year of data, from 2006 to 2023.  The files are unioned in dbt.
+6.  I also used dbt to run tests for uniqueness and not null, as well as to transform column names and organize the sourcing of the data.  These tests revealed that there are issues with the uniqueness and completeness of the data.  I wrote code to filter out duplicate rows, but when I did so, the overall numbers were significantly lower than those public reported by the City of Philadelphia.  Further analysis is required to identify why these discrepancies are arising.
+7.  With Google Looker Studio, prepare charts to visualize the data.  
 
 
 ## Setup
@@ -60,10 +61,14 @@ The setup guide from the Zoomcamp for Mage can be found here:  https://github.co
 
 ## Issues Encountered During the Project
   
-Since the source files had a "gz" compressed extension, I assumed they would be large when uncompressed.  This assumption was erroneous.  In fact, when I tried to read one into Pandas, I got an error stating that the file was not compressed at all.  It turns out that they are text files, even though they bear a "gz" extension.  Also, each year's data was relatively small, so I did not have to use a generator to read the files without using all the memory.  Nevertheless, when I tried to concatenate all years from 2006 through 2023, Mage froze up.  So I ended up creating a Parquet file for each year in Google Cloud Storage and then doing a "UNION ALL" in BigQuery to create one dataset.  The files are posted annually by the City of Philadelphia.  In Mage, I created a trigger for the pipeline to run at least once more next year, in 2025, but the download script would need to be modified to change the ending year of the range. 
-    
-After I loaded the database into dbt, I realized I had not included the most recent full calendar year, 2023.  So I had to go back and add that year's data.  Fortunately, with the pipeline in Mage, this was an easy undertaking.  Then, in Google Looker Studio, I noted a sharp dropoff in reported crimes for the year 2008.  It turned out that 2008 had somehow been missed in the initial pipeline.  So I had to run the pipeline separately for that year as well.
+I wrote bash scriipts to download all the source files from the Philadelphia Open Data Portal.  There are two scripts--one for pre-2020 data and another for post-2020 data--because Philadelphia changed the format of the reports beginning in 2020. 
 
-I wrote bash scriipts to download all the source files from the Philadelphia Open Data Portal.  There are two scripts--one for pre-2020 data and another for post-2020 data--because Philadelphia changed the format of the reports beginning in 2020.  
+Since the source files had a "gz" compressed extension, I assumed they would be compressed.  This assumption was erroneous.  In fact, when I tried to read one into Pandas, I got an error stating that the file was not compressed at all.  It turns out that they are text files, even though they bear a "gz" extension.  The Mage loader converts the files into "txt" files and reads them into Pandas.  Each year's data ranges from 30 to 40 megabytes in size, so I did not have to use a generator to read the files without using all the memory.  Nevertheless, when I tried to concatenate all years from 2006 through 2023, Mage froze up.  So I ended up creating a Parquet file for each year in Google Cloud Storage and then doing a "UNION ALL" in dbt to create one dataset.  The files are posted annually by the City of Philadelphia.  In Mage, I created a trigger for the pipeline to run at least once more next year, in 2025, but the download script and pipeline would need to be modified to change the ending year of the range. 
+    
+My first attempt at the project is contained in the "models" folder in dbt.  After I loaded the database, I realized I had not included the most recent full calendar year, 2023.  So I had to go back and add that year's data.  Fortunately, with the pipeline in Mage, this was an easy undertaking.  Then, in Google Looker Studio, I noted a sharp dropoff in reported crimes for the year 2008.  It turned out that 2008 had not been included because I derived the date for the year from the first reported crime of the year, and sometimes those had a dispatch date from the prior year.  After ironing out all of these wrinkles, I decided to rebuild the project from scratch, and did so revising both the Mage and the dbt code.  The dbt files for the final project and dashboard are contained in the "staging-final-project" folder.
 
 During the earlier phases of this project, I tried to use Airflow for the workflow orchesration.  I found it endlessly frustrating and never got it to work, even with the stripped down configuration recommended in the 2022 DE Zoomcamp.
+
+### Conclusions from the Data
+
+The data reveal the impact of the pandemic.  Serious crime was largely in decline before the pandemic and has been increasing post-pandemic.  Likewise, the number of homicides jumped in the post-pandemic years.  Since Democrats have controlled municipal government in Philadelphia for at least the last half a century, my conclusio is that the crime rate is governed more by societal conditions like the pandemic than who may hold political office.      
