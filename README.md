@@ -50,7 +50,7 @@ This project seeks to determine whether the fears are justified or, instead, are
 3.  Run Terraform to set up Google Cloud Storage bucket and BigQuery dataset.
 4.  Use Mage pipeline to read files into Pandas, transform them by adding columns for the day of the week, month and quarter, load them as Parquet files in Google Cloud Storage, and then load them to Bigquery.  The final project is located in the "staging-final-project" directory of the dbt folder.
 5.  The Mage pipeline creates a file for each year of data, from 2006 to 2023.  The files are unioned in dbt.
-6.  I also used dbt to run tests for uniqueness and not null, as well as to transform column names and organize the sourcing of the data.  These tests revealed that there are issues with the uniqueness and completeness of the data.  I wrote code to filter out duplicate rows, but when I did so, the overall numbers were significantly lower than those public reported by the City of Philadelphia.  Further analysis is required to identify why these discrepancies are arising.
+6.  I also used dbt to run tests for uniqueness and not null, as well as to transform column names and organize the sourcing of the data.  These tests revealed that there are issues with the uniqueness and completeness of the data.  I wrote code to filter out duplicate rows, but when I did so, the overall numbers were significantly lower than those publicly reported by the City of Philadelphia.  Further analysis is required to identify why these discrepancies are arising.
 7.  With Google Looker Studio, prepare charts to visualize the data.  
 
 
