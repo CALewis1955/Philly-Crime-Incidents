@@ -69,7 +69,8 @@ The files are posted annually by the City of Philadelphia.  It's possible to run
     
 My first attempt at the project is contained in the "models" folder in dbt.  After I loaded the database, I realized I had not included the most recent full calendar year, 2023.  So I had to go back and add that year's data.  Fortunately, with the pipeline in Mage, this was an easy undertaking.  Then, in Google Looker Studio, I noted a sharp dropoff in reported crimes for the year 2008.  It turned out that 2008 had not been included because I derived the date for the year from the first reported crime of the year, and sometimes those had a dispatch date from the prior year.  After ironing out all of these wrinkles, I decided to rebuild the project from scratch, and did so revising both the Mage and the dbt code.  The dbt files for the final project and dashboard are contained in the "staging-final-project" folder.
 
-During the earlier phases of this project, I tried to use Airflow for the workflow orchesration.  I found it endlessly frustrating and never got it to work, even with the stripped down configuration recommended in the 2022 DE Zoomcamp.
+During the earlier phases of this project, I tried to use Airflow for the workflow orchesration.  I found it endlessly frustrating and never got it to work, even with the stripped down configuration recommended in the 2022 DE Zoomcamp.  Also, while dbt integrated seamlessly with Github, it took me a while to get the setup right for pushing files from the terminal in the VM to my Github repo. 
+ 
 
 ### Conclusions from the Data
 
