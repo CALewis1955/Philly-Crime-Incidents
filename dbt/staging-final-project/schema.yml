@@ -1,0 +1,371 @@
+version: 2
+
+sources:
+  - name: staging-final-project
+    database:
+      philly-crime-incidents
+      # For postgres:
+      #database: production
+    schema:
+      final_project_dataset
+
+      # loaded_at_field: record_loaded_at
+    tables:
+      - name: 2006_2023_data
+      - name: crime_data_2006
+      - name: crime_data_2007      
+      - name: crime_data_2008
+      - name: crime_data_2009
+      - name: crime_data_2010
+      - name: crime_data_2011
+      - name: crime_data_2012
+      - name: crime_data_2013
+      - name: crime_data_2014
+      - name: crime_data_2015
+      - name: crime_data_2016
+      - name: crime_data_2017
+      - name: crime_data_2018
+      - name: crime_data_2019
+      - name: crime_data_2020
+      - name: crime_data_2021
+      - name: crime_data_2022
+      - name: crime_data_2023
+
+
+models:
+  - name: unioned_data_2006_2023
+    description: "Part 1 & Part 2 Crime Incidents from the Police Department's INCT system with generalized UCR codes and addresses rounded to the hundred block. These counts may not coincide exactly with data that is submitted to the Uniformed Crime Reporting (UCR) system."
+    columns:
+      - name: objectid
+        data_type: int64
+        description: ""
+
+      - name: dc_key
+        data_type: int64
+        description: " The unique identifier of the crime that consists of Year + District + Unique ID. "
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: dc_dist
+        data_type: numeric
+        description: " 	A two character field that names the District boundary. "
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: psa
+        data_type: string
+        description: " 	A single character field that names the Police Service Area boundary. "
+
+      - name: dispatch_date_time
+        data_type: timestamp
+        description: " The date and time that the officer was dispatched to the scene."
+
+      - name: dispatch_date
+        data_type: timestamp
+        description: "Dispatch date formatted as a string, but converted to a timestamp. "
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: dispatch_time
+        data_type: timestamp
+        description: "Dispatch time formatted as a string, but converted to a timestamp. "
+
+      - name: hour
+        data_type: int64
+        description: " The generalized hour of the dispatched time. "
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: day
+        data_type: string
+        description: "The day of the week on which the incident was reported."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: month
+        data_type: int64
+        description: "The month of the year in which the incident was reported."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: quarter
+        data_type: int64
+        description: "The quarter of the year in which the incident was reported."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: ucr_general
+        data_type: int64
+        description: "The rounded crime code, i.e. 614 to 600."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: text_general_code
+        data_type: string
+        description: "The generalized text for the crime code."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: location_block
+        data_type: int64
+        description: "Street address of the block where the crime occurred."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: point_x
+        data_type: numeric
+        description: "Longitude of crime location."
+
+      - name: point_y
+        data_type: numeric
+        description: "Latitude of crime location. "
+
+      - name: lat
+        data_type: numeric
+        description: "Latitude of crime location. "
+        
+      - name: lng
+        data_type: numeric
+        description: "Longitude of crime location. "
+
+  - name: unioned_data_2006_2019
+    description: "Part 1 & Part 2 Crime Incidents from the Police Department's INCT system with generalized UCR codes and addresses rounded to the hundred block. These counts may not coincide exactly with data that is submitted to the Uniformed Crime Reporting (UCR) system."
+    columns:
+    
+      - name: objectid
+        data_type: int64
+        description: ""
+        tests:
+          - unique:
+              severity: warn
+
+      - name: dc_key
+        data_type: int64
+        description: " The unique identifier of the crime that consists of Year + District + Unique ID. "
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: dc_dist
+        data_type: int64
+        description: " 	A two character field that names the District boundary. "
+        tests:
+          - not_null:
+              config:
+                warn_if: "> 1000"
+
+      - name: psa
+        data_type: string
+        description: " 	A single character field that names the Police Service Area boundary. "
+
+      - name: dispatch_date_time
+        data_type: timestamp
+        description: " The date and time that the officer was dispatched to the scene."
+
+      - name: dispatch_date
+        data_type: timestamp
+        description: "Dispatch date formatted as a string, but converted to a timestamp. "
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: dispatch_time
+        data_type: timestamp
+        description: "Dispatch time formatted as a string, but converted to a timestamp. "
+
+      - name: hour
+        data_type: int64
+        description: " The generalized hour of the dispatched time. "
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: day
+        data_type: string
+        description: "The day of the week on which the incident was reported."
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: month
+        data_type: int64
+        description: "The month of the year in which the incident was reported."
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: quarter
+        data_type: int64
+        description: "The quarter of the year in which the incident was reported."
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: ucr_general
+        data_type: int64
+        description: "The rounded crime code, i.e. 614 to 600."
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: text_general_code
+        data_type: string
+        description: "The generalized text for the crime code."
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: location_block
+        data_type: int64
+        description: "Street address of the block where the crime occurred."
+        tests:
+          - not_null:
+              config:
+                severity: warn
+
+      - name: point_x
+        data_type: numeric
+        description: "Longitude of crime location."
+
+      - name: point_y
+        data_type: numeric
+        description: "Latitude of crime location. "
+
+      - name: lat
+        data_type: numeric
+        description: "Latitude of crime location. "
+        
+      - name: lng
+        data_type: numeric
+        description: "Longitude of crime location. "
+
+  - name: unioned_data_2020_2023
+    description: "Part 1 & Part 2 Crime Incidents from the Police Department's INCT system with generalized UCR codes and addresses rounded to the hundred block. These counts may not coincide exactly with data that is submitted to the Uniformed Crime Reporting (UCR) system."
+    columns:
+     
+      - name: objectid
+        data_type: int64
+        description: ""
+
+      - name: dc_key
+        data_type: int64
+        description: " The unique identifier of the crime that consists of Year + District + Unique ID. "
+        tests:
+          - unique:
+              severity: warn
+          - not_null:
+              severity: warn
+
+      - name: dc_dist
+        data_type: int64
+        description: " 	A two character field that names the District boundary. "
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: psa
+        data_type: string
+        description: " 	A single character field that names the Police Service Area boundary. "
+
+      - name: dispatch_date_time
+        data_type: timestamp
+        description: " The date and time that the officer was dispatched to the scene."
+
+      - name: dispatch_date
+        data_type: timestamp
+        description: "Dispatch date formatted as a string, but converted to a timestamp. "
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: dispatch_time
+        data_type: timestamp
+        description: "Dispatch time formatted as a string, but converted to a timestamp. "
+
+      - name: hour
+        data_type: int64
+        description: " The generalized hour of the dispatched time. "
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: day
+        data_type: string
+        description: "The day of the week on which the incident was reported."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: month
+        data_type: int64
+        description: "The month of the year in which the incident was reported."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: quarter
+        data_type: int64
+        description: "The quarter of the year in which the incident was reported."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: ucr_general
+        data_type: int64
+        description: "The rounded crime code, i.e. 614 to 600."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: text_general_code
+        data_type: string
+        description: "The generalized text for the crime code."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: location_block
+        data_type: int64
+        description: "Street address of the block where the crime occurred."
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: point_x
+        data_type: numeric
+        description: "Longitude of crime location."
+
+      - name: point_y
+        data_type: numeric
+        description: "Latitude of crime location. "
+
+      - name: lat
+        data_type: numeric
+        description: "Latitude of crime location. "
+        
+      - name: lng
+        data_type: numeric
+        description: "Longitude of crime location. "
+
+  
