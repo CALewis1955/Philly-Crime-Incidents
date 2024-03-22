@@ -1,19 +1,16 @@
 {{ config(materialized="view") }}
 
-with crime_data as
-    -- I misnamed the table in BigQuery; it runs through 2023, even though it says 2003
-    (select *,
-        row_number() over(partition by dc_key, dispatch_date_time) as rn
-        FROM {{ source("staging", "2006-2003_complete_data") }}
+with crime_data as (select *,
+        row_number() over (partition by cast(dc_key as numeric), dispatch_date_time) as rn
+        from {{ source("staging", "crime_data_2006") }}
     )
 
 select
     -- identifiers
-    {{ dbt_utils.generate_surrogate_key(["dc_key", "dispatch_date_time"]) }}
-    as crime_id,
+    --{{ dbt_utils.generate_surrogate_key(["dc_key", "dispatch_date_time"]) }}
+    --as crime_id,
     objectid,
-    {{ dbt.safe_cast("dc_key", api.Column.translate_type("integer")) }}
-    as police_key,
+    cast(dc_key as numeric) as police_key,
     {{ dbt.safe_cast("dc_dist", api.Column.translate_type("integer")) }}
     as police_district,
     psa,
@@ -49,6 +46,11 @@ select
 
 from crime_data
 where rn = 1
+
+UNION ALL
+
+select *
+FROM {{ source("staging", "crime_data_2007") }}
 
 -- dbt build --select <model_name> --vars '{'is_test_run': 'false'}'
 {% if var("is_test_run", default=true) %} limit 100 {% endif %}

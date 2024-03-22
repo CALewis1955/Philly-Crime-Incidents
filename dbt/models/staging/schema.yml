@@ -11,7 +11,7 @@ sources:
 
       # loaded_at_field: record_loaded_at
     tables:
-      - name: 2006-2023_crime_data
+      - name: 2006-2003_complete_data
 
 models:
   - name: stg_2006-2023_crime_data
@@ -25,7 +25,7 @@ models:
               severity: warn
           - not_null:
               severity: warn
-
+         
       - name: objectid
         data_type: int64
         description: ""

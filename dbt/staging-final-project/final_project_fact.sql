@@ -1,10 +1,9 @@
 {{ config(materialized="view") }}
 
 with crime_data as
-    -- I misnamed the table in BigQuery; it runs through 2023, even though it says 2003
     (select *,
-        row_number() over(partition by dc_key, dispatch_date_time) as rn
-        FROM {{ source("staging", "2006-2003_complete_data") }}
+        row_number() over(partition by cast(dc_key as numeric), dispatch_date_time) as rn
+        FROM {{ ref("unioned_data_2006_2023") }}
     )
 
 select
@@ -48,7 +47,7 @@ select
     cast(lng as numeric) as lng
 
 from crime_data
-where rn = 1
+--where rn = 1
 
 -- dbt build --select <model_name> --vars '{'is_test_run': 'false'}'
-{% if var("is_test_run", default=true) %} limit 100 {% endif %}
+--{% if var("is_test_run", default=true) %} limit 100 {% endif %}
