@@ -21,7 +21,7 @@ This project seeks to determine whether the fears are justified or, instead, are
 5.  What is the distribution of violent crimes?  Of non-violent crimes?
 6.  What time of day is safest?  Most dangerous?
 
-## Link to Google Looker Studio -- Dashboard and visualization of Data:  [https://lookerstudio.google.com/reporting/14f14688-5d57-4193-bd13-019a9f023a5b.](https://lookerstudio.google.com/reporting/3f3b14ec-0b6e-4804-bc8e-99944ca9453a).  Please note that this multi-page report is for educational purposes only and should NOT be relied upon as representing a fully accurate reporting of crime incidents in the City of Philadelphia. 
+## Dashboard:  link to Google Looker Studio and visualization of data:  [https://lookerstudio.google.com/reporting/14f14688-5d57-4193-bd13-019a9f023a5b.](https://lookerstudio.google.com/reporting/3f3b14ec-0b6e-4804-bc8e-99944ca9453a).  Please note that this multi-page report is for educational purposes only and should NOT be relied upon as representing a fully accurate reporting of crime incidents in the City of Philadelphia. 
 
 
 ##  Technology Stack
